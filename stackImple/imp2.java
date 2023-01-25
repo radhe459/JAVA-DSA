@@ -1,5 +1,5 @@
 
-package Stack;
+package stackImple;
 
 import java.util.*;
 
