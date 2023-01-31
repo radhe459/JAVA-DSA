@@ -1,64 +1,64 @@
 
 package queImple;
 
-import java.util.*;
+/**
+ *
+ * @author infor
+ */
 
-class Queue{
-    int capacity;
-    int front;
-    int rear;
-    int arr[];
-    Queue(int size){
-        capacity=size;
-        front=-1;
-        rear=-1;
-        arr=new int[size];
-    }
-    boolean isempty(){
-        if(rear==-1) System.out.println("Queue is Empty");
-        return rear==-1;
+class Queue2{
+    int front,rear,curr_size;
+    int arr[],capacity;
+    public Queue2(int cap){
+        capacity=cap;
+        front=0;
+        rear=capacity-1;
+        curr_size=0;
+        arr=new int[capacity];
     }
     boolean isfull(){
-        if(rear==capacity-1) System.out.println("Queue is Full");
-        return rear==capacity-1;
+        if(curr_size==capacity)
+            System.out.println("Overflow");
+        return curr_size==capacity;
     }
+    
+    boolean isempty(){
+        if(curr_size==0)
+            System.out.println("underflow");
+        return curr_size==0;
+    }
+    
     void enqueue(int ele){
-        if(isfull()){
+        if(isfull())
             return;
-        }
-        if(front==-1)
-            front=0;
-        rear++;
+        rear=(rear+1)%capacity;
         arr[rear]=ele;
+        curr_size+=1;
     }
     int dequeue(){
         if(isempty())
             return Integer.MIN_VALUE;
-        int ele=arr[front];
-        front++;
-        if(front>rear){
-            front=-1;
-            rear=-1;
-        }
-        return ele;
+        int elem=arr[front];
+        front=(front+1)%capacity;
+        curr_size-=1;
+        return elem;
     }
-    
     int front(){
         if(isempty())
             return Integer.MIN_VALUE;
+        //System.out.println(front);
         return arr[front];
     }
     int rear(){
-        if(isempty())
+        if(isfull())
             return Integer.MIN_VALUE;
         return arr[rear];
     }
-    
 }
 
-public class Imp1 {
+public class imp2 {
     public static void main(String[] args) {
-        Queue queue=new Queue(5);
+        Queue2 queue=new Queue2(5);
         queue.enqueue(5);
         queue.enqueue(10);
         queue.enqueue(15);
@@ -75,5 +75,4 @@ public class Imp1 {
         System.out.println("deleted : "+queue.dequeue());
         System.out.println("empty : "+queue.isempty());
     }
-    
 }
